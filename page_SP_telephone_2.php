@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>FireRescue</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="container">
+    <div id="logo"><img src="images/logo.jpg" alt="Logo" /></div>
+    <div id="banner"><img src="images/main-image.jpg" alt="Main Image" /></div>
+    <div id="nav">
+
+    <!-- Menu -->
+
+    <ul>
+        <li class="nlink"><a href="page_cnxSP.php">Accueil</a></li>
+        <li class="nlink"><a href="page_SP_personnel.php">Personnel</a></li>
+        <li class="nlink"><a href="page_SP_formation.php">Formation</a></li>
+    </ul>
+
+    </div>
+
+        <!-- Contenu de la page -->
+
+    <div id="content">
+    <br /><br />
+
+    <?php
+    include "connect.php";
+
+    $matricule = $_GET['matricule'];
+    $telephone = $_GET['tel'];
+
+    //Requete sql permettant la modification du num�ro de telephone
+    $sql = "UPDATE pompier SET SP_TEL_PORTABLE = '$telephone' WHERE SP_MATRICULE =".$matricule;
+
+    $result = mysql_query($sql);
+
+    if ($result)
+	echo "<meta http-equiv='refresh' content='0;url=page_SP_personnel.php?
+				message=<font color=green> Modification realisée </font>'>";
+    else
+	echo "<meta http-equiv='refresh' content='0;url=page_SP_personnel.php?
+				message=<font color=red> La modification n a pas ete realisée </font>'>";
+    ?>
+
+    <br /><br />
+    </div>
+ 	
+    <div id="footer">
+    <br />
+    <p>&copy; Fire Rescue Squad 2006. All rights reserved. | designed by <a href="http://www.freewebsitetemplates.com">free website templates</a></p>
+    </div>
+    </div>
+</body>
+</html>

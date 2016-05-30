@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>FireRescue</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="container">
+    <div id="logo"><img src="images/logo.jpg" alt="Logo" /></div>
+    <div id="banner"><img src="images/main-image.jpg" alt="Main Image" /></div>
+    <div id="nav">
+
+    <!-- Menu -->
+
+    <ul>
+        <li class="nlink"><a href="page_cnxSF.php">Accueil</a></li>
+        <li class="nlink"><a href="page_SF_personnel.php">Personnel</a></li>
+        <li class="nlink"><a href="page_SF_catalogue.php">Catalogue</a></li>
+        <li class="nlink"><a href="page_SF_validation.php">Validation</a></li>
+    </ul>
+
+    </div>
+
+    <!-- Contenu de la page -->
+
+    <div id="content">
+    <br /><br />
+
+    <?php
+    include 'connect.php';
+    session_start();
+    $matricule=$_SESSION['matricule'];
+    $id=$_GET['formation'];
+    $inscrire=$_GET['groupe1'];
+
+    if ($inscrire=="inscrire") {
+	    $sql2="Insert into `inscrire`(`SP_MATRICULE`, `FOR_ID`) values ('$matricule', '$id')";
+	    echo $sql2;
+
+        $result = mysql_query($sql2);
+	    if ($result) {
+		    echo "<meta http-equiv='refresh'content='0;url=page_SF_formation_redirection.php?message=<font color=green> Insertion Réalisée </font>'>";
+	    } else {
+		    echo "<meta http-equiv='refresh'content='0;url=page_SF_formation_redirection.php?message=<font color=red> Insertion Echouée </font>'>";
+	    }
+    } else if ($inscrire=="suppr") {
+	    $sql3="Delete from inscrire where SP_matricule='$matricule' and FOR_ID='$id'";
+	    $result=mysql_query($sql3);
+	    echo $sql3;
+	    if ($result) {
+		    echo "<meta http-equiv='refresh'content='0;url=page_SF_formation_redirection.php?message=<font color=green> Suppression Réalisée </font>'>";
+	    } else {
+		    echo "<meta http-equiv='refresh'content='0;url=page_SF_formation_redirection.php?message=<font color=red> Suppression Echouée </font>'>";
+	    }
+        } else {
+	        echo "<meta http-equiv='refresh'content='0;url=page_SF_formation_redirection.php?message=<font color=red> Veuillez faire un choix </font>'>";
+    }
+    ?>
+
+    <br /><br />
+    </div>
+
+    <div id="footer">
+    <br />
+    <p>&copy; Fire Rescue Squad 2006. All rights reserved. | designed by <a href="http://www.freewebsitetemplates.com">free website templates</a></p>
+    </div>
+    </div>
+</body>
+</html>
